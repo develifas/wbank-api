@@ -32,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
         'district',
         'address',
         'number',
-        'logradouro',
+        'public_place',
         'complement',
         'password',
     ];

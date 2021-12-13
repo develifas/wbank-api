@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 use Exception;
+
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -24,9 +28,9 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['cpf', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -95,6 +99,8 @@ class AuthController extends Controller
                 'birthday' => 'required|date',
                 'mother' => 'required|string|max:255',
                 'email' => 'required|email:rfc,dns',
+                'password' => 'required|min:8|max:32',
+                'password_confirm' => 'required|same:password',
                 'phone' => 'required|string|min:11|max:11',
                 'zipcode' => 'required|string|min:8|max:8',
                 'state' => 'required|string|min:2|max:2',
@@ -117,15 +123,20 @@ class AuthController extends Controller
                 'cpf.unique' => 'O CPF informado já está cadastrado.',
                 'birthday.required' => 'Precisamos saber sua data de nascimento.',
                 'birthday.date' => 'Formato da data é inválido',
-                'mother.requireded' => 'O nome mãe é obrigatório.',
+                'mother.required' => 'O nome mãe é obrigatório.',
                 'mother.string' => 'O campo nome da mãe é do tipo string.',
                 'mother.max' => 'O nome da mãe deve conter no mínimo 255 caracteres.',
                 'email.required' => 'O e-mail é obrigatório.',
                 'email.email' => 'O endereço de Email é inválido.',
+                'password.required' => 'A senha é obrigatória',
+                'password.min' => 'A senha deve conter no mínimo 8 caracteres.',
+                'password.max' => 'A senha deve conter no máximo 32 caracteres.',
+                'password_confirm.required' => 'Confirme sua senha.',
+                'password_confirm.same' => 'Senha não correspondem.',
                 'phone.required' => 'O telefone é obrigatório.',
                 'phone.string' => 'O campo do telefone é do tipo string',
-                'phone.min' => 'O número de telefone deve conter 8 dígitos.',
-                'phone.max' => 'O número de telefone deve conter 8 dígitos.',
+                'phone.min' => 'O número de telefone deve conter 11 dígitos.',
+                'phone.max' => 'O número de telefone deve conter 11 dígitos.',
                 'zipcode.required' => 'O CEP é obrigatório.',
                 'zipcode.string' => 'O campo CEP é do tipo string',
                 'zipcode.min' => 'O CEP deve conter 8 digitos.',
@@ -151,8 +162,46 @@ class AuthController extends Controller
                 return response()->json($validator->errors());
             }
 
-            return response()->json($request->all());
-        
+            if(! $validator->fails()) {
+
+                $user = new User();
+
+                $user->uid = Uuid::uuid4();
+                $user->name = $request->name;
+                $user->cpf = $request->cpf;
+                $user->birthday = $request->birthday;
+                $user->mother = $request->mother;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->phone = $request->phone;
+                $user->zipcode = $request->zipcode;
+                $user->state = $request->state;
+                $user->city = $request->city;
+                $user->district = $request->district;
+                $user->address = $request->address;
+                $user->number = $request->number;
+                $user->public_place = $request->public_place;
+                $user->complement = $request->complement;
+
+                try {
+                    if($user->save()) {
+                        return response()->json([
+                            'data' => $request->all(),
+                            'response' => [
+                                'message' => 'Cadastro realizado com sucesso.',
+                                'code' => 200,
+                            ]
+                        ],  200);
+                    } else {
+                        return resposne()->json([
+                            'message' => 'Falha ao tentar salvar os dados.Tente novamente.',
+                            'code' => 400,
+                        ]);
+                    }
+                } catch(Exception $error) {
+                    return response()->json($error->getMessage());
+                }
+            }        
         } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage(),

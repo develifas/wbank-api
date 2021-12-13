@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('district', 255);
             $table->string('address', 255);
             $table->string('number', 255);
-            $table->string('logradouro', 255)->nullable();
+            $table->string('public_place', 255)->nullable();
             $table->string('complement', 255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
