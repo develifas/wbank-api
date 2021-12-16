@@ -127,28 +127,7 @@ class AccountController extends Controller
     }
 
 
-    public function transactions(Request $request)
-    {
-        try {
 
-            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/$request->id_transaction", [
-
-
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                    'account' => "$request->account_id",
-                    'user' => "$request->user_id",
-                    'authorization' => "bearer $request->login_token",
-                ],
-            ]);
-
-            return json_decode($response->getBody(),true);
-        }catch (ClientException $e) {
-            return $responseBody = $e->getResponse()->getBody(true);
-        }
-
-    }
 
     public function consultUser(Request $request)
     {

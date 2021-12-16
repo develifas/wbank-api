@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientSessionController;
 use App\Http\Controllers\ClientRegisterController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\PaymentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,12 +44,26 @@ Route::group([
 Route::group(['middleware' => 'api',
     'prefix' => 'bank'
 ], function ($router) {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes TOKEN
+    |--------------------------------------------------------------------------
+    */
     //Controllers Generate api-token
     Route::post('token', [ClientSessionController::class, 'acessSessionToken']);
 
     //Controllers Generate "LOGIN TOKEN"
     Route::post('login', [ClientSessionController::class, 'accountLogin']);
 
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes REGISTER
+    |--------------------------------------------------------------------------
+    */
     //Controllers Register Users
     Route::post('register/p/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
 
@@ -82,11 +98,16 @@ Route::group(['middleware' => 'api',
     Route::post('register/b/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
     Route::post('register/b/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
 
-
     //Controllers Register COMPANY (Contrato Social)
     Route::post('register/b/doc/company', [ClientRegisterController::class, 'accountPersonRegisterDocCompany']);
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes ACCOUNTS
+    |--------------------------------------------------------------------------
+    */
+    //Controller Create New billets
+    Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
 
     //Controller Get Account
     Route::get('accounts', [AccountController::class, 'getAccount']);
@@ -96,21 +117,28 @@ Route::group(['middleware' => 'api',
 
     Route::get('accounts/extracts', [AccountController::class, 'getExtract']);
 
-    //Controller Transtion Details By ID
-    Route::get('accounts/transactions', [AccountController::class, 'transactions']);
-
     //Controller Validate Secure Pin
     Route::get('accounts/validate/password', [AccountController::class, 'validatePin']);
 
     //Controller Create New Account
     Route::get('accounts/new/wallet', [AccountController::class, 'createAccount']);
 
-    //Controller Create New billets
-    Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
-
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes TRANSACTIONS
+    |--------------------------------------------------------------------------
+    */
     //Controller Send Transfer
-    Route::post('accounts/new/transactions', [AccountController::class, 'sendMoney']);
+    Route::post('transactions', [TransactionsController::class, 'transactions']);
+    //Controller Transactions Details By ID
+    Route::get('transactions', [TransactionsController::class, 'transactionsConsult']);
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes PAYMENTS
+    |--------------------------------------------------------------------------
+    */
+    Route::post('payments', [PaymentsController::class, 'payments']);
+    Route::get('payments', [PaymentsController::class, 'validateTypedLine']);
 
 });
