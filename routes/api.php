@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientSessionController;
+use App\Http\Controllers\ClientRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,25 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+});
+
+
+Route::group(['middleware' => 'api',
+    'prefix' => 'bank'
+], function ($router) {
+    Route::post('token', [ClientSessionController::class, 'acessSessionToken']);
+    Route::post('login', [ClientSessionController::class, 'accountLogin']);
+    Route::post('register/p/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
+    Route::post('register/p/address', [ClientRegisterController::class, 'accountPersonRegisterAddress']);
+
+
+    Route::post('register/p/doc/selfie', [ClientRegisterController::class, 'accountPersonRegisterDocSelfie']);
+
+    Route::post('register/p/doc/id/front', [ClientRegisterController::class, 'accountPersonRegisterDocIdFront']);
+    Route::post('register/p/doc/id/verse', [ClientRegisterController::class, 'accountPersonRegisterDocIdVerse']);
+
+    Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
+    Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
+
+
 });
