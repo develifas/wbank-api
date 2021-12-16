@@ -92,17 +92,20 @@ Route::group(['middleware' => 'api',
     Route::get('accounts', [AccountController::class, 'getAccount']);
 
     //Controller User Query Returns
-    Route::get('list/users', [AccountController::class, 'consultUser']);
+    Route::get('accounts/list/users', [AccountController::class, 'consultUser']);
 
-    Route::get('extracts', [AccountController::class, 'getExtract']);
+    Route::get('accounts/extracts', [AccountController::class, 'getExtract']);
 
     //Controller Transtion Details By ID
-    Route::get('transactions', [AccountController::class, 'transactions']);
+    Route::get('accounts/transactions', [AccountController::class, 'transactions']);
 
     //Controller Validate Secure Pin
     Route::get('accounts/validate/password', [AccountController::class, 'validatePin']);
 
-    //Controller Create New Account Wallet
+    //Controller Create New Account
+    Route::get('accounts/new/wallet', [AccountController::class, 'createAccount']);
+
+    //Controller Create New billets
     Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
 
     //Controller Send Transfer

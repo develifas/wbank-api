@@ -68,7 +68,7 @@ class AccountController extends Controller
 
     }
 
-    public function accountsNewWallet(Request $request)
+    public function createAccount(Request $request)
     {
         try {
             $response = $this->client->request('POST', 'https://bank.qesh.ai/accounts', [
