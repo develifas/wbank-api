@@ -70,13 +70,12 @@ class TransactionsController extends Controller
     }
 
 
-    public function transactionsConsult(Request $request)
+    public function transactionsConsult(Request $request,$id)
     {
+
+
         try {
-
-            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/$request->id_transaction", [
-
-
+            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/$id", [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
@@ -85,7 +84,6 @@ class TransactionsController extends Controller
                     'authorization' => "bearer $request->login_token",
                 ],
             ]);
-
             return json_decode($response->getBody(),true);
         }catch (ClientException $e) {
             return $responseBody = $e->getResponse()->getBody(true);

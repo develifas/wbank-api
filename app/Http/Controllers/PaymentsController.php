@@ -22,11 +22,11 @@ class PaymentsController extends Controller
         $this->client =  new Client();
     }
 
-    public function validateTypedLine(Request $request)
+    public function validateTypedLine(Request $request,$digitableline)
     {
         try {
 
-            $response = $this->client->request('GET', "https://bank.qesh.ai/payments/validate?digitable_line=$request->digitable_line", [
+            $response = $this->client->request('GET', "https://bank.qesh.ai/payments/validate?digitable_line=$digitableline", [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
@@ -67,10 +67,12 @@ class PaymentsController extends Controller
 
     }
 
-    public function getPayments(Request $request)
+    public function getPayments(Request $request,$id)
     {
+
+
         try {
-            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/payment/$request->id", [
+            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/payment/$id", [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',

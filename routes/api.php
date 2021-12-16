@@ -51,12 +51,12 @@ Route::group(['middleware' => 'api',
     | API Routes TOKEN
     |--------------------------------------------------------------------------
     */
+
     //Controllers Generate api-token
     Route::post('token', [ClientSessionController::class, 'acessSessionToken']);
 
     //Controllers Generate "LOGIN TOKEN"
     Route::post('login', [ClientSessionController::class, 'accountLogin']);
-
 
 
     /*
@@ -115,7 +115,7 @@ Route::group(['middleware' => 'api',
     //Controller User Query Returns
     Route::get('accounts/list/users', [AccountController::class, 'consultUser']);
 
-    Route::get('accounts/extracts', [AccountController::class, 'getExtract']);
+    Route::get('accounts/extracts/{start}/{end}', [AccountController::class, 'getExtract']);
 
     //Controller Validate Secure Pin
     Route::get('accounts/validate/password', [AccountController::class, 'validatePin']);
@@ -132,7 +132,7 @@ Route::group(['middleware' => 'api',
     //Controller Send Transfer
     Route::post('transactions', [TransactionsController::class, 'transactions']);
     //Controller Transactions Details By ID
-    Route::get('transactions', [TransactionsController::class, 'transactionsConsult']);
+    Route::get('transactions/{id}', [TransactionsController::class, 'transactionsConsult']);
 
     /*
     |--------------------------------------------------------------------------
@@ -144,10 +144,10 @@ Route::group(['middleware' => 'api',
     Route::post('payments', [PaymentsController::class, 'payments']);
 
     //Controller Validate Digitable line
-    Route::get('payments/codebar', [PaymentsController::class, 'validateTypedLine']);
+    Route::get('payments/transactions/{digitableline}', [PaymentsController::class, 'validateTypedLine']);
 
     //Controller Return Billets from ID
-    Route::get('payments/get', [PaymentsController::class, 'getPayments']);
+    Route::get('payments/{id}', [PaymentsController::class, 'getPayments']);
 
 
 

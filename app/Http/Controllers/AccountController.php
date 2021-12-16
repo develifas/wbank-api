@@ -148,10 +148,10 @@ class AccountController extends Controller
     }
 
 
-    public function getExtract(Request $request)
+    public function getExtract(Request $request,$start,$end)
     {
         try {
-            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions?start=$request->start&end=$request->end", [
+            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions?start=$start&end=$end", [
                 'headers' => [
                     'Accept' => 'application/json',
                     'account' => "$request->account_id",
