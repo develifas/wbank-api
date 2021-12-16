@@ -65,6 +65,28 @@ Route::group(['middleware' => 'api',
     Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
     Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
 
+    //Controllers Register Users
+    Route::post('register/b/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
+
+    //Controllers Register Address
+    Route::post('register/b/address', [ClientRegisterController::class, 'accountPersonRegisterAddress']);
+
+    //Controllers Register Selfie
+    Route::post('register/b/doc/selfie', [ClientRegisterController::class, 'accountPersonRegisterDocSelfie']);
+
+    //Controllers Register Document (RG)
+    Route::post('register/b/doc/id/front', [ClientRegisterController::class, 'accountPersonRegisterDocIdFront']);
+    Route::post('register/b/doc/id/verse', [ClientRegisterController::class, 'accountPersonRegisterDocIdVerse']);
+
+    //Controllers Register Document (CNH)
+    Route::post('register/b/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
+    Route::post('register/b/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
+
+
+    //Controllers Register COMPANY (Contrato Social)
+    Route::post('register/b/doc/company', [ClientRegisterController::class, 'accountPersonRegisterDocCompany']);
+
+
 
     //Controller Get Account
     Route::get('accounts', [AccountController::class, 'getAccount']);
@@ -82,6 +104,9 @@ Route::group(['middleware' => 'api',
 
     //Controller Create New Account Wallet
     Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
+
+    //Controller Send Transfer
+    Route::post('accounts/new/transactions', [AccountController::class, 'sendMoney']);
 
 
 

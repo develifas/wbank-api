@@ -231,5 +231,32 @@ class ClientRegisterController extends Controller
 
     }
 
+    public function accountPersonRegisterDocCompany(Request $request)
+    {
+        try {
+            $response = $this->client->request('POST', 'https://bank.qesh.ai/users/documents?type=COMPANY', [
+
+                'body' => '{"file":"'.$request->file_company.'"}',
+
+                'headers' => [
+
+                    'Accept' => 'application/json',
+
+                    'Content-Type' => 'application/json',
+
+                    'api-token' => "$request->access_token",
+
+                    'user' => "$request->user_id",
+
+                ],
+
+            ]);
+            return json_decode($response->getBody(),true);
+        }catch (ClientException $e) {
+            return $responseBody = $e->getResponse()->getBody(true);
+        }
+
+    }
+
 
 }
