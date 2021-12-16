@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientSessionController;
 use App\Http\Controllers\ClientRegisterController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,12 +42,16 @@ Route::group([
 Route::group(['middleware' => 'api',
     'prefix' => 'bank'
 ], function ($router) {
-    //Controllers Auth
+    //Controllers Generate api-token
     Route::post('token', [ClientSessionController::class, 'acessSessionToken']);
+
+    //Controllers Generate "LOGIN TOKEN"
     Route::post('login', [ClientSessionController::class, 'accountLogin']);
 
-    //Controllers Register Users and Address
+    //Controllers Register Users
     Route::post('register/p/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
+
+    //Controllers Register Address
     Route::post('register/p/address', [ClientRegisterController::class, 'accountPersonRegisterAddress']);
 
     //Controllers Register Selfie
@@ -59,6 +64,25 @@ Route::group(['middleware' => 'api',
     //Controllers Register Document (CNH)
     Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
     Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
+
+
+    //Controller Get Account
+    Route::get('accounts', [AccountController::class, 'getAccount']);
+
+    //Controller User Query Returns
+    Route::get('list/users', [AccountController::class, 'consultUser']);
+
+    Route::get('extracts', [AccountController::class, 'getExtract']);
+
+    //Controller Transtion Details By ID
+    Route::get('transactions', [AccountController::class, 'transactions']);
+
+    //Controller Validate Secure Pin
+    Route::get('accounts/validate/password', [AccountController::class, 'validatePin']);
+
+    //Controller Create New Account Wallet
+    Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
+
 
 
 });

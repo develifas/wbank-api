@@ -43,7 +43,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                 ],
 
@@ -77,7 +77,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
@@ -105,7 +105,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
@@ -133,7 +133,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
@@ -161,7 +161,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
@@ -189,7 +189,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
@@ -217,7 +217,7 @@ class ClientRegisterController extends Controller
 
                     'Content-Type' => 'application/json',
 
-                    'api-token' => "$request->token",
+                    'api-token' => "$request->access_token",
 
                     'user' => "$request->user_id",
 
