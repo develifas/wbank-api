@@ -128,6 +128,7 @@ Route::group(['middleware' => 'api',
     | API Routes TRANSACTIONS
     |--------------------------------------------------------------------------
     */
+
     //Controller Send Transfer
     Route::post('transactions', [TransactionsController::class, 'transactions']);
     //Controller Transactions Details By ID
@@ -138,7 +139,19 @@ Route::group(['middleware' => 'api',
     | API Routes PAYMENTS
     |--------------------------------------------------------------------------
     */
+
+    //Controller Make Payment
     Route::post('payments', [PaymentsController::class, 'payments']);
-    Route::get('payments', [PaymentsController::class, 'validateTypedLine']);
+
+    //Controller Validate Digitable line
+    Route::get('payments/codebar', [PaymentsController::class, 'validateTypedLine']);
+
+    //Controller Return Billets from ID
+    Route::get('payments/get', [PaymentsController::class, 'getPayments']);
+
+
+
+
+
 
 });

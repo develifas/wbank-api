@@ -67,5 +67,24 @@ class PaymentsController extends Controller
 
     }
 
+    public function getPayments(Request $request)
+    {
+        try {
+            $response = $this->client->request('GET', "https://bank.qesh.ai/transactions/payment/$request->id", [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'account' => "$request->account_id",
+                    'user' => "$request->user_id",
+                    'authorization' => "bearer $request->login_token",
+                ],
+            ]);
+            return json_decode($response->getBody(),true);
+        }catch (ClientException $e) {
+            return $responseBody = $e->getResponse()->getBody(true);
+        }
+
+    }
+
 
 }
