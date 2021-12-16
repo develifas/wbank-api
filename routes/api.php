@@ -41,17 +41,22 @@ Route::group([
 Route::group(['middleware' => 'api',
     'prefix' => 'bank'
 ], function ($router) {
+    //Controllers Auth
     Route::post('token', [ClientSessionController::class, 'acessSessionToken']);
     Route::post('login', [ClientSessionController::class, 'accountLogin']);
+
+    //Controllers Register Users and Address
     Route::post('register/p/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
     Route::post('register/p/address', [ClientRegisterController::class, 'accountPersonRegisterAddress']);
 
-
+    //Controllers Register Selfie
     Route::post('register/p/doc/selfie', [ClientRegisterController::class, 'accountPersonRegisterDocSelfie']);
 
+    //Controllers Register Document (RG)
     Route::post('register/p/doc/id/front', [ClientRegisterController::class, 'accountPersonRegisterDocIdFront']);
     Route::post('register/p/doc/id/verse', [ClientRegisterController::class, 'accountPersonRegisterDocIdVerse']);
 
+    //Controllers Register Document (CNH)
     Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
     Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
 
