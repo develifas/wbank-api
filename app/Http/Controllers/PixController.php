@@ -22,13 +22,8 @@ class PixController extends Controller
         $this->client =  new Client();
     }
 
-
-
-
     public function pixConsult(Request $request)
     {
-
-
         try {
             $response = $this->client->request('GET', 'https://bank.qesh.ai/pix/participants', [
                 'headers' => [
@@ -48,8 +43,6 @@ class PixController extends Controller
 
     public function pixConsultKey(Request $request ,$key)
     {
-
-
         try {
             $response = $this->client->request('GET', "https://bank.qesh.ai/pix/key/$key", [
                 'headers' => [
@@ -117,6 +110,7 @@ class PixController extends Controller
         }
 
     }
+
 
     public function getPix(Request $request,$id)
     {

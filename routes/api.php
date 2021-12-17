@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PixController;
+use App\Http\Controllers\PhoneRechargeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,6 +170,21 @@ Route::group(['middleware' => 'api',
 
 
 
+    /*
+       |--------------------------------------------------------------------------
+       | API Routes Phone TopUps
+       |--------------------------------------------------------------------------
+       */
+
+    //Controller Make Payment
+    Route::post('phone/list/operators/{stateCode} ', [PhoneRechargeController::class, 'listOperators']);
+
+    //Controller Make Payment
+    Route::post('phone/list/values/{stateCode}/{providerId} ', [PhoneRechargeController::class, 'availablevalues']);
+
+
+    //Controller Make Payment
+    Route::post('phone/charge ', [PhoneRechargeController::class, 'phoneCharge']);
 
 
 
