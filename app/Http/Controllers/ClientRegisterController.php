@@ -236,7 +236,7 @@ class ClientRegisterController extends Controller
         try {
             $response = $this->client->request('POST', 'https://bank.qesh.ai/users/documents?type=COMPANY', [
 
-                'body' => '{"file":"'.$request->file_company.'"}',
+                'body' => '{"file":"'.$request->file_driver_verse.'"}',
 
                 'headers' => [
 
