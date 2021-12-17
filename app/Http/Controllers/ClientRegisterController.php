@@ -61,7 +61,8 @@ class ClientRegisterController extends Controller
         try {
             $response = $this->client->request('POST', 'https://bank.qesh.ai/users/address', [
 
-                'body' => '{"country":"Brasil",
+                'body' => '{
+                "country":"Brasil",
                 "zip_code":"'.$request->zip_code.'",
                 "street":"'.$request->street.'",
                 "number":"'.$request->number.'",

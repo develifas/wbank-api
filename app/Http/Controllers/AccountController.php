@@ -105,7 +105,7 @@ class AccountController extends Controller
                 "state":"'.$request->state.'",
                 "zipcode":"'.$request->zipcode.'",
                 "amount":'.$request->amount.',
-                "logo":"https://cashpagdigital.com/index.html"
+                "logo":"https://cashpagdigital.com/images/logo-black@2x.png"
                 }',
                 'headers' => [
                     'Accept' => 'application/json',

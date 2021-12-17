@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientRegisterController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\PixController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,18 +111,18 @@ Route::group(['middleware' => 'api',
     Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
 
     //Controller Get Account
-    Route::get('accounts', [AccountController::class, 'getAccount']);
+    Route::post('accounts', [AccountController::class, 'getAccount']);
 
     //Controller User Query Returns
-    Route::get('accounts/list/users', [AccountController::class, 'consultUser']);
+    Route::post('accounts/list/users', [AccountController::class, 'consultUser']);
 
-    Route::get('accounts/extracts/{start}/{end}', [AccountController::class, 'getExtract']);
+    Route::post('accounts/extracts/{start}/{end}', [AccountController::class, 'getExtract']);
 
     //Controller Validate Secure Pin
-    Route::get('accounts/validate/password', [AccountController::class, 'validatePin']);
+    Route::post('accounts/validate/password', [AccountController::class, 'validatePin']);
 
     //Controller Create New Account
-    Route::get('accounts/new/wallet', [AccountController::class, 'createAccount']);
+    Route::post('accounts/new/wallet', [AccountController::class, 'createAccount']);
 
     /*
     |--------------------------------------------------------------------------
@@ -131,8 +132,25 @@ Route::group(['middleware' => 'api',
 
     //Controller Send Transfer
     Route::post('transactions', [TransactionsController::class, 'transactions']);
+
     //Controller Transactions Details By ID
-    Route::get('transactions/{id}', [TransactionsController::class, 'transactionsConsult']);
+    Route::post('transactions/{id}', [TransactionsController::class, 'transactionsConsult']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes PIX
+    |--------------------------------------------------------------------------
+    */
+
+
+    Route::post('transactions/pix/get', [PixController::class, 'getPix']);
+
+    Route::post('transactions/pix/key/{key}', [PixController::class, 'pixConsultKey']);
+
+    Route::post('transactions/pix/qrcode', [PixController::class, 'pixQrcode']);
+
+    Route::post('transactions/pix/pay', [PixController::class, 'pixPay']);
+
 
     /*
     |--------------------------------------------------------------------------
@@ -144,10 +162,10 @@ Route::group(['middleware' => 'api',
     Route::post('payments', [PaymentsController::class, 'payments']);
 
     //Controller Validate Digitable line
-    Route::get('payments/transactions/{digitableline}', [PaymentsController::class, 'validateTypedLine']);
+    Route::post('payments/transactions/{digitableline}', [PaymentsController::class, 'validateTypedLine']);
 
     //Controller Return Billets from ID
-    Route::get('payments/{id}', [PaymentsController::class, 'getPayments']);
+    Route::post('payments/{id}', [PaymentsController::class, 'getPayments']);
 
 
 
