@@ -40,19 +40,20 @@ class ClientSessionController extends Controller
                     'Content-Type' => 'application/json',
                 ],
             ]);
+            
             return json_decode($response->getBody(),true);
-        }catch (ClientException $e) {
+            
+        } catch (ClientException $e) {
             return $responseBody = $e->getResponse()->getBody(true);
         }
     }
 
-
     public function accountLogin(Request $request)
     {
         $cpfCnpj = str_replace(['.','-','/'],'',$request->cpfCnpj);
+
         try {
             $response = $this->client->request('POST', 'https://bank.qesh.ai/login', [
-
                 'body' => '{
                         "client_name":"qesh",
                         "origin":"api",
@@ -64,6 +65,7 @@ class ClientSessionController extends Controller
                     'Content-Type' => 'application/json',
                 ],
             ]);
+          
             $data =  json_decode($response->getBody(),true);
             return  response()->json([
                 'session_token' =>$data['token'],
@@ -73,9 +75,6 @@ class ClientSessionController extends Controller
         }catch (ClientException $e) {
              return $responseBody = $e->getResponse()->getBody(true);
         }
-
-
-
     }
-
+    
 }

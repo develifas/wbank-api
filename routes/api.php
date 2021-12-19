@@ -12,14 +12,14 @@ use App\Http\Controllers\PixController;
 use App\Http\Controllers\PhoneRechargeController;
 
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
+  |--------------------------------------------------------------------------
+  | API Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register API routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | is assigned the "api" middleware group. Enjoy building your API!
+  |
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -110,18 +110,13 @@ Route::group(['middleware' => 'api',
     */
     //Controller Create New billets
     Route::post('accounts/new/billets', [AccountController::class, 'accountsNewBillets']);
-
     //Controller Get Account
     Route::post('accounts', [AccountController::class, 'getAccount']);
-
     //Controller User Query Returns
     Route::post('accounts/list/users', [AccountController::class, 'consultUser']);
-
     Route::post('accounts/extracts/{start}/{end}', [AccountController::class, 'getExtract']);
-
     //Controller Validate Secure Pin
     Route::post('accounts/validate/password', [AccountController::class, 'validatePin']);
-
     //Controller Create New Account
     Route::post('accounts/new/wallet', [AccountController::class, 'createAccount']);
 
@@ -143,13 +138,9 @@ Route::group(['middleware' => 'api',
     |--------------------------------------------------------------------------
     */
 
-
     Route::post('transactions/pix/get', [PixController::class, 'getPix']);
-
     Route::post('transactions/pix/key/{key}', [PixController::class, 'pixConsultKey']);
-
     Route::post('transactions/pix/qrcode', [PixController::class, 'pixQrcode']);
-
     Route::post('transactions/pix/pay', [PixController::class, 'pixPay']);
 
 
@@ -168,8 +159,6 @@ Route::group(['middleware' => 'api',
     //Controller Return Billets from ID
     Route::post('payments/{id}', [PaymentsController::class, 'getPayments']);
 
-
-
     /*
        |--------------------------------------------------------------------------
        | API Routes Phone TopUps
@@ -182,10 +171,9 @@ Route::group(['middleware' => 'api',
     //Controller Make Payment
     Route::post('phone/list/values/{stateCode}/{providerId} ', [PhoneRechargeController::class, 'availablevalues']);
 
-
     //Controller Make Payment
     Route::post('phone/charge ', [PhoneRechargeController::class, 'phoneCharge']);
-
-
-
+        Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
+        Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
+    });
 });
