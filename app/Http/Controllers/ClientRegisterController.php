@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client as Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
-use PharIo\Version\Exception;
-use Illuminate\Support\Facades\Validator;
 
 class ClientRegisterController extends Controller
 {
@@ -21,15 +19,15 @@ class ClientRegisterController extends Controller
         $this->client =  new Client();
     }
 
-
     public function accountPersonRegisterUser(Request $request)
     {
+        $document = str_replace(['.','-','/'],'',$request->cpfCnpj);
+        $birthday = date('y-m-d',strtotime($request->birthday));
         try {
             $response = $this->client->request('POST', 'https://bank.qesh.ai/users', [
-
                 'body' => '{
-                "document":"'.$request->cpfCnpj.'",
-                "birth_date":"'.$request->birthday.'",
+                "document":"'.$document.'",
+                "birth_date":"'.$birthday.'",
                 "name":"'.$request->name.'",
                 "email":"'.$request->email.'",
                 "phone":"'.$request->phone.'",
@@ -48,7 +46,36 @@ class ClientRegisterController extends Controller
                 ],
 
             ]);
+            if($response->getStatusCode() == 201 || $response->getStatusCode() == 200){
+                $zip_code = str_replace("-","",$request->zip_code);
+                $response = $this->client->request('POST', 'https://bank.qesh.ai/users/address', [
+                    'body' => '{
+                    "country":"Brasil",
+                    "zip_code":"'.$zip_code.'",
+                    "street":"'.$request->street.'",
+                    "number":"'.$request->number.'",
+                    "complement":"'.$request->complement.'",
+                    "neighborhood":"'.$request->neighborhood.'",
+                    "city":"'.$request->city.'",
+                    "state":"'.$request->state.'"
+                }',
+
+                    'headers' => [
+
+                        'Accept' => 'application/json',
+
+                        'Content-Type' => 'application/json',
+
+                        'api-token' => "$request->access_token",
+
+                        'user' => "$request->user_id",
+
+                    ],
+
+                ]);
+            }
             return json_decode($response->getBody(),true);
+
         }catch (ClientException $e) {
             return $responseBody = $e->getResponse()->getBody(true);
         }

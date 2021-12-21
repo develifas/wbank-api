@@ -60,10 +60,9 @@ Route::group(['middleware' => 'api',
     //Controllers Generate "LOGIN TOKEN"
     Route::post('login', [ClientSessionController::class, 'accountLogin']);
 
-
     /*
     |--------------------------------------------------------------------------
-    | API Routes REGISTER
+    | API Routes REGISTER PF
     |--------------------------------------------------------------------------
     */
     //Controllers Register Users
@@ -83,6 +82,11 @@ Route::group(['middleware' => 'api',
     Route::post('register/p/doc/driver/front', [ClientRegisterController::class, 'accountPersonRegisterDocDriverFront']);
     Route::post('register/p/doc/driver/verse', [ClientRegisterController::class, 'accountPersonRegisterDocDriverVerse']);
 
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes REGISTER PJ
+    |--------------------------------------------------------------------------
+    */
     //Controllers Register Users
     Route::post('register/b/user', [ClientRegisterController::class, 'accountPersonRegisterUser']);
 
@@ -170,20 +174,19 @@ Route::group(['middleware' => 'api',
 
 
 
-    /*
-       |--------------------------------------------------------------------------
-       | API Routes Phone TopUps
-       |--------------------------------------------------------------------------
-       */
+   /*
+   |--------------------------------------------------------------------------
+   | API Routes Phone TopUps
+   |--------------------------------------------------------------------------
+   */
 
     //Controller Make Payment
     Route::post('phone/list/operators/{stateCode} ', [PhoneRechargeController::class, 'listOperators']);
 
-    //Controller Make Payment
-    Route::post('phone/list/values/{stateCode}/{providerId} ', [PhoneRechargeController::class, 'availablevalues']);
+    //Controller Consult Available Values
+    Route::post('phone/list/values/{stateCode}/{providerId} ', [PhoneRechargeController::class, 'availableValues']);
 
-
-    //Controller Make Payment
+    //Controller Phone Charge
     Route::post('phone/charge ', [PhoneRechargeController::class, 'phoneCharge']);
 
 

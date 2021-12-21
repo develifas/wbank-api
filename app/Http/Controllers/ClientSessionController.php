@@ -21,7 +21,6 @@ class ClientSessionController extends Controller
     {
         $this->client =  new Client();
     }
-
     /**
      * Get a JWT via given credentials.
      *
@@ -54,10 +53,10 @@ class ClientSessionController extends Controller
             $response = $this->client->request('POST', 'https://bank.qesh.ai/login', [
 
                 'body' => '{
-                        "client_name":"qesh",
+                        "client_name":"cashpag",
                         "origin":"api",
                         "document":"'.$cpfCnpj.'",
-                        "password":"' . $request->password . '"
+                        "password":"' . $request->password. '"
                        }',
                 'headers' => [
                     'Accept' => 'application/json',
@@ -71,7 +70,7 @@ class ClientSessionController extends Controller
                 "user"=>$data['user']
             ]);
         }catch (ClientException $e) {
-             return $responseBody = $e->getResponse()->getBody(true);
+            return $responseBody = $e->getResponse()->getBody(true);
         }
 
 

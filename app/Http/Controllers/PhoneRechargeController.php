@@ -23,7 +23,6 @@ class PhoneRechargeController extends Controller
     }
 
 
-
     public function listOperators(Request $request,$stateCode)
     {
         try {
@@ -44,7 +43,7 @@ class PhoneRechargeController extends Controller
     }
 
 
-    public function availablevalues(Request $request,$stateCode,$providerId)
+    public function availableValues(Request $request,$stateCode,$providerId)
     {
         try {
             $response = $this->client->request('GET', "https://bank.qesh.ai/topups/phone/providers/price?stateCode=$stateCode&providerId=$providerId", [
@@ -62,8 +61,6 @@ class PhoneRechargeController extends Controller
         }
 
     }
-
-
 
 
     public function phoneCharge(Request $request)
@@ -90,6 +87,5 @@ class PhoneRechargeController extends Controller
         }
 
     }
-
 
 }
