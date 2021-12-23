@@ -193,7 +193,7 @@ class AuthController extends Controller
                             ]
                         ],  200);
                     } else {
-                        return resposne()->json([
+                        return response()->json([
                             'message' => 'Falha ao tentar salvar os dados.Tente novamente.',
                             'code' => 400,
                         ]);
